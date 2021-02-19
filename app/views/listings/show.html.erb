@@ -27,5 +27,34 @@
   </p>
 <% end %>
 
+<% if @listing.sold %>
+  <p>Listing already sold!</p>
+<% else %>
+  <% if user_signed_in? %>
+    <button data-stripe="payment">
+    Buy Now!
+    </button>
+  <% else %>
+    <%= button_to "Buy Now!", new_user_registration_path, method: :get %>
+  <% end %>
+<% end %>
+
+
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  document
+    .querySelector("[data-stripe='payment']")
+    .addEventListener("click", () => {
+      const stripe = Stripe(
+        "<%= Rails.application.credentials.dig(:stripe, :public_key) %>"
+      )
+
+      stripe.redirectToCheckout({
+        sessionId: "<%= @session_id %>"
+      })
+    })
+</script>
+
 <%= link_to 'Edit', edit_listing_path(@listing) %> |
 <%= link_to 'Back', listings_path %>
