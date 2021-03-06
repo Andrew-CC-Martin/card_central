@@ -3,17 +3,17 @@
 <%= form_with(local: true, url: currencies_path, method: :get) do |form| %>
   <div class="field">
     <%= form.label :from %>
-    <%= form.select :from, @currencies %>
+    <%= form.select :from, @currencies, selected: params[:from] %>
   </div>
 
   <div class="field">
     <%= form.label :to %>
-    <%= form.select :to, @currencies %>
+    <%= form.select :to, @currencies, selected: params[:to] %>
   </div>
 
   <div class="field">
     <%= form.label :amount %>
-    <%= form.number_field :amount %>
+    <%= form.number_field :amount, value: params[:amount] %>
   </div>
 
   <div class="actions">
@@ -23,7 +23,7 @@
 
 <% if @total %>
   <p>
-    <%= @amount %> in <%= @from %>
+    <%= @amount %> <%= @from %>
     Equals:
   </p>
   <p>
