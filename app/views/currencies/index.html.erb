@@ -1,0 +1,32 @@
+<h1>Currency rates:</h1>
+
+<%= form_with(local: true, url: currencies_path, method: :get) do |form| %>
+  <div class="field">
+    <%= form.label :from %>
+    <%= form.select :from, @currencies %>
+  </div>
+
+  <div class="field">
+    <%= form.label :to %>
+    <%= form.select :to, @currencies %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.number_field :amount %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Get Rate" %>
+  </div>
+<% end %>
+
+<% if @total %>
+  <p>
+    <%= @amount %> in <%= @from %>
+    Equals:
+  </p>
+  <p>
+    <%= format("%.2f", @total) %> <%= @to %>
+  </p>
+<% end %>

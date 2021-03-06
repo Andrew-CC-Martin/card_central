@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :listings
   get "/payments/success", to: "payments#success"
   post "/payments/webhook", to: "payments#webhook"
+  get "/currencies", to: "currencies#index", as: "currencies"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
